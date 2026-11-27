@@ -552,14 +552,48 @@ body{overflow:hidden}
   .slide.is-active .content{filter:none}
 }
 
+/* RESPONSIVE V4 — diseño fluido para móvil, tablet y PC */
 
-/* AJUSTE RESPONSIVE REAL — móvil y pantallas táctiles */
-@media (max-width: 760px){
-  html, body, .presentation{
-    width:100%;
+/* PC y pantallas amplias: conservar composición completa y centrar el contenido */
+@media (min-width: 761px){
+  html,body,.presentation{width:100%;height:100%;min-height:100%}
+  .slide{overflow:hidden}
+  .slide .content{
+    width:min(1180px,86vw);
     height:100%;
+    min-height:0;
+    margin:0 auto;
+  }
+  .controls{max-width:calc(100vw - 32px)}
+}
+
+/* Portátiles y pantallas de poca altura: compactar espacios sin alterar el orden */
+@media (min-width: 761px) and (max-height: 820px){
+  .content{padding-top:5vh;padding-bottom:7vh}
+  .content-01{padding-top:7vh}
+  .content-02,.content-03,.content-04,.content-05,.content-06,.content-07{
+    padding-top:4.5vh;padding-bottom:6vh
+  }
+  .slide-title{font-size:clamp(38px,4.4vw,66px)}
+  .slide-subtitle{margin-top:14px;font-size:clamp(16px,1.4vw,21px)}
+  .flow{margin-top:30px}
+  .flow-card{min-height:112px;padding:16px}
+  .evidence-grid{margin-top:22px;gap:12px}
+  .damage-layout{margin-top:20px;gap:18px}
+  .damage-photo{height:clamp(130px,22vh,205px)}
+  .trace-layout{margin-top:22px;gap:16px}
+  .trace-visual{min-height:210px;padding:24px 18px 16px}
+  .bridge-layout{margin-top:24px;gap:12px}
+}
+
+/* Tablet y móvil: permitir lectura vertical, con columnas adaptables */
+@media (max-width: 760px){
+  html,body,.presentation{
+    width:100%;
     min-height:100%;
   }
+  html,body{height:100%;overflow:hidden}
+  .presentation{height:100dvh}
   .slide{
     inset:0;
     height:100%;
@@ -569,60 +603,72 @@ body{overflow:hidden}
     overscroll-behavior-y:contain;
   }
   .slide .content{
-    width:min(88vw, 620px);
+    width:min(90vw,620px);
     height:auto;
-    min-height:100svh;
+    min-height:100dvh;
     margin:0 auto;
-    padding:76px 0 112px;
+    padding:clamp(68px,9vh,92px) 0 116px;
     justify-content:flex-start;
     gap:0;
-    transform:none;
   }
   .slide .content-01{
-    min-height:100svh;
-    padding-top:15svh;
+    min-height:100dvh;
+    padding-top:clamp(105px,17vh,170px);
     padding-bottom:120px;
   }
-  .slide .slide-head{max-width:100%}
-  .slide .title,
-  .slide .slide-title{
+  .slide-head{max-width:100%}
+  .title,.slide-title{
     max-width:100%;
+    font-size:clamp(34px,8.6vw,56px);
+    line-height:1.04;
     overflow-wrap:anywhere;
     hyphens:auto;
   }
-  .slide .subtitle,
-  .slide .slide-subtitle{
+  .subtitle,.slide-subtitle{
     max-width:100%;
+    font-size:clamp(15px,3.8vw,19px);
+    line-height:1.45;
     overflow-wrap:anywhere;
   }
   .slide .number{
     position:fixed;
-    right:6vw;
+    right:5vw;
     bottom:calc(76px + env(safe-area-inset-bottom));
     z-index:9;
     pointer-events:none;
   }
   .controls{
     position:fixed;
-    bottom:calc(12px + env(safe-area-inset-bottom));
-    max-width:calc(100vw - 24px);
-    gap:8px;
+    bottom:calc(10px + env(safe-area-inset-bottom));
+    max-width:calc(100vw - 20px);
+    gap:7px;
     padding:6px 8px;
   }
   .controls button{flex:0 0 34px}
-  .bar{width:min(22vw,100px)}
-  .evidence-image img,
-  .evidence-duo img,
-  .damage-photo img{
+  .bar{width:min(20vw,90px)}
+  .evidence-image img,.evidence-duo img,.damage-photo img{
     max-width:100%;
     height:100%;
     object-fit:cover;
   }
 }
-@media (max-width: 380px){
-  .slide .content{width:90vw;padding-top:68px;padding-bottom:120px}
-  .slide .title{font-size:clamp(34px,10vw,44px)}
-  .slide .slide-title{font-size:clamp(32px,9.5vw,42px)}
-  .controls{gap:5px}
-  .bar{width:18vw}
+
+/* Teléfonos estrechos */
+@media (max-width: 390px){
+  .slide .content{width:90vw;padding-top:66px;padding-bottom:120px}
+  .slide .title,.slide .slide-title{font-size:clamp(31px,8.8vw,39px)}
+  .slide .subtitle,.slide .slide-subtitle{font-size:15px}
+  .controls{gap:5px;padding:5px 6px}
+  .controls button{flex-basis:32px;width:32px;height:32px}
+  .bar{width:16vw}
+}
+
+/* Móvil apaisado: aprovechar el ancho y evitar tarjetas excesivamente altas */
+@media (max-width: 900px) and (orientation: landscape){
+  .slide .content{width:88vw;padding-top:58px;padding-bottom:88px}
+  .slide .content-01{padding-top:12vh}
+  .slide .title,.slide .slide-title{font-size:clamp(28px,5vw,44px)}
+  .slide .subtitle,.slide .slide-subtitle{font-size:clamp(13px,2vw,16px);margin-top:10px}
+  .controls{bottom:8px}
+  .slide .number{bottom:58px}
 }
