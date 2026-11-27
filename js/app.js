@@ -86,6 +86,10 @@ nextBtn.addEventListener('click', next);
 prevBtn.addEventListener('click', prev);
 
 document.addEventListener('keydown', event => {
+  if(document.body.classList.contains('lightbox-open')){
+    if(event.key === 'Escape') closeImageLightbox();
+    return;
+  }
   if(['ArrowRight','PageDown',' '].includes(event.key)){ event.preventDefault(); next(); }
   if(['ArrowLeft','PageUp'].includes(event.key)){ event.preventDefault(); prev(); }
   if(event.key === 'Home'){ event.preventDefault(); if(slide !== 0) setSlide(0, -1); }
@@ -113,3 +117,65 @@ window.addEventListener('resize', () => {
 
 updateViewportScale();
 updateControls();
+
+// Visor de imágenes ampliadas (lightbox)
+let imageLightbox = null;
+
+function closeImageLightbox(){
+  if(!imageLightbox) return;
+  imageLightbox.classList.remove('is-open');
+  document.body.classList.remove('lightbox-open');
+  imageLightbox.setAttribute('aria-hidden','true');
+  const previous = imageLightbox.dataset.previousFocus;
+  if(previous){
+    const target = document.getElementById(previous);
+    if(target) target.focus();
+  }
+}
+
+function openImageLightbox(img){
+  if(!imageLightbox){
+    imageLightbox = document.createElement('div');
+    imageLightbox.className = 'image-lightbox';
+    imageLightbox.setAttribute('role','dialog');
+    imageLightbox.setAttribute('aria-modal','true');
+    imageLightbox.setAttribute('aria-label','Imagen ampliada');
+    imageLightbox.setAttribute('aria-hidden','true');
+    imageLightbox.innerHTML = `
+      <button class="lightbox-close" type="button" aria-label="Cerrar imagen">×</button>
+      <img class="lightbox-image" alt="">
+      <div class="lightbox-caption" aria-live="polite"></div>
+    `;
+    document.body.appendChild(imageLightbox);
+    imageLightbox.addEventListener('click', event => {
+      if(event.target === imageLightbox || event.target.closest('.lightbox-close')) closeImageLightbox();
+    });
+    imageLightbox.addEventListener('touchstart', event => event.stopPropagation(), {passive:true});
+    imageLightbox.addEventListener('touchend', event => event.stopPropagation(), {passive:true});
+  }
+
+  const largeImage = imageLightbox.querySelector('.lightbox-image');
+  const caption = imageLightbox.querySelector('.lightbox-caption');
+  largeImage.src = img.currentSrc || img.src;
+  largeImage.alt = img.alt || 'Imagen de la presentación';
+  caption.textContent = img.alt || img.closest('figure')?.querySelector('figcaption')?.textContent || '';
+  imageLightbox.dataset.previousFocus = img.id || '';
+  imageLightbox.classList.add('is-open');
+  imageLightbox.setAttribute('aria-hidden','false');
+  document.body.classList.add('lightbox-open');
+  imageLightbox.querySelector('.lightbox-close').focus();
+}
+
+document.querySelectorAll('.slide img').forEach((img,index) => {
+  img.classList.add('zoomable-image');
+  img.setAttribute('tabindex','0');
+  img.setAttribute('role','button');
+  img.setAttribute('aria-label', (img.alt || 'Ver imagen') + ' — ampliar');
+  img.addEventListener('click', () => openImageLightbox(img));
+  img.addEventListener('keydown', event => {
+    if(event.key === 'Enter' || event.key === ' '){
+      event.preventDefault();
+      openImageLightbox(img);
+    }
+  });
+});
