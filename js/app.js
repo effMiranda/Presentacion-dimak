@@ -1,5 +1,5 @@
 let slide = 0;
-const total = slides.length;
+const total = document.querySelectorAll('.slide').length;
 const slides = [...document.querySelectorAll('.slide')];
 const progress = document.getElementById('progress');
 const prevBtn = document.getElementById('prev');
