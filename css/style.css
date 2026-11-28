@@ -813,3 +813,77 @@ body.lightbox-open{overflow:hidden!important}
  .label-data{gap:5px;margin:10px 0;padding:10px 14px}
  .label-result{margin-top:12px;padding:12px 16px}
 }
+
+
+/* Diapositiva 4 — cuadrícula de cuatro desarrollos, incluido etiquetado 9020 */
+@media(min-width:761px){
+  .slide-04 .evidence-grid{
+    grid-template-columns:1.15fr 1fr;
+    grid-template-rows:1fr 1fr;
+    grid-template-areas:none;
+    gap:14px;
+    margin-top:28px;
+  }
+  .slide-04 .evidence-grid>.evidence-card{grid-area:auto;min-height:0}
+  .slide-04 .evidence-grid .evidence-image,
+  .slide-04 .evidence-grid .evidence-duo,
+  .slide-04 .evidence-grid .evidence-9020-gallery{height:140px}
+  .slide-04 .evidence-grid .evidence-copy{padding:13px 16px 15px}
+  .slide-04 .evidence-grid .evidence-copy h3{font-size:17px;margin-bottom:5px}
+  .slide-04 .evidence-grid .evidence-copy p{font-size:11px;line-height:1.38}
+  .slide-04 .evidence-grid .evidence-hero{min-height:0}
+  .slide-04 .evidence-grid .evidence-hero .evidence-image{height:140px}
+}
+.evidence-9020-gallery{
+  height:140px;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:7px;
+  padding:7px;
+  background:rgba(255,255,255,.025);
+}
+.evidence-9020-gallery figure{
+  position:relative;
+  min-width:0;
+  margin:0;
+  overflow:hidden;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.10);
+  background:#10151b;
+}
+.evidence-9020-gallery img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;
+  cursor:zoom-in;
+}
+.evidence-9020-gallery figcaption{
+  position:absolute;
+  left:5px;
+  right:5px;
+  bottom:5px;
+  padding:4px 5px;
+  border-radius:5px;
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  text-align:center;
+  font-size:7px;
+  letter-spacing:.08em;
+}
+.evidence-9020 .evidence-copy{padding:13px 16px 15px}
+.evidence-9020 .evidence-copy h3{font-size:16px;margin-bottom:5px}
+.evidence-9020 .evidence-copy p{font-size:11px;line-height:1.35}
+.evidence-time{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;margin-top:8px;color:#dce8ef}
+.evidence-time span{font-size:13px;color:#f0b6a8;font-weight:700}
+.evidence-time i{font-style:normal;color:var(--muted)}
+.evidence-time strong{font-size:17px;color:#8fd3a9}
+.evidence-time small{width:100%;color:var(--muted);font-size:9px}
+@media(max-width:760px){
+  .slide-04 .evidence-grid{grid-template-columns:1fr;grid-template-areas:none}
+  .slide-04 .evidence-grid>.evidence-card{grid-area:auto}
+  .evidence-9020-gallery{height:180px;grid-template-columns:1.2fr .8fr}
+  .evidence-9020 .evidence-copy{padding:16px 17px 18px}
+  .evidence-9020 .evidence-copy h3{font-size:17px}
+  .evidence-9020 .evidence-copy p{font-size:12px}
+}
