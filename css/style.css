@@ -887,3 +887,13 @@ body.lightbox-open{overflow:hidden!important}
   .evidence-9020 .evidence-copy h3{font-size:17px}
   .evidence-9020 .evidence-copy p{font-size:12px}
 }
+
+
+/* Corrección: la cuarta tarjeta de la diapositiva 4 también debe aparecer */
+.slide-04 .evidence-9020{opacity:0;transform:translateY(22px) scale(.988)}
+.slide.is-active .evidence-9020{
+  animation:miniEvidenceIn .62s .82s var(--ease-out) forwards;
+}
+@media(prefers-reduced-motion:reduce){
+  .slide-04 .evidence-9020{opacity:1!important;transform:none!important}
+}
